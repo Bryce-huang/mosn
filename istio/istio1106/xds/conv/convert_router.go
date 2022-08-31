@@ -221,6 +221,12 @@ func convertRouteAction(xdsRouteAction *envoy_config_route_v3.RouteAction) v2.Ro
 			RetryPolicy:      convertRetryPolicy(xdsRouteAction.GetRetryPolicy()),
 			PrefixRewrite:    xdsRouteAction.GetPrefixRewrite(),
 			AutoHostRewrite:  xdsRouteAction.GetAutoHostRewrite().GetValue(),
+			RegexRewrite: &v2.RegexRewrite{
+				Pattern: v2.PatternConfig{
+					Regex: xdsRouteAction.GetRegexRewrite().GetPattern().Regex,
+				},
+				Substitution: xdsRouteAction.GetRegexRewrite().Substitution,
+			},
 			//RequestHeadersToAdd:     convertHeadersToAdd(xdsRouteAction.GetRequestHeadersToAdd()),
 			//
 			//ResponseHeadersToAdd:    convertHeadersToAdd(xdsRouteAction.GetResponseHeadersToAdd()),
